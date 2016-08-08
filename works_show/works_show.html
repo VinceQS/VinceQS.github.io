@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				background: #000;
+			}
+			div{
+				width: 100px;
+				height: 30px;
+				margin: 20px auto;
+			}
+			div a{
+				float: left;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-decoration: none;
+				font-size: 28px;
+				margin: 0 10px;
+			}
+			ul{
+				width: 300px;
+				height: 300px;
+				position: relative;
+				margin: 200px auto;
+				perspective: 800px; 
+			}
+			ul li{
+				list-style: none;
+				width: 300px;
+				height: 300px;
+				background: #f69;
+				font-size: 50px;
+				text-align: center;
+				line-height: 300px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				opacity: 0;
+				transition: .5s all ease;
+				----webkit-box-reflect: below 20px ;
+			}
+			ul li img{
+				width: 300px;
+				height: 300px;
+			}
+			.show{
+				opacity: 1;
+				z-index: 11;
+			}
+			.l1{
+				opacity: .5;
+				transform: translateX(-250px) rotateY(30deg) ;
+			}
+			.l2{
+				transform: translateX(-450px) rotateY(45deg) ;
+			}
+			.r1{
+				opacity: .5;
+				transform: translateX(250px) rotateY(-30deg) ;
+			}
+			.r2{
+				transform: translateX(450px) rotateY(-45deg) ;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				var oBtn_l=document.querySelector('div #left');
+				var oBtn_r=document.querySelector('div #right');
+				var aLi=document.querySelectorAll('ul li')
+				var aClass=[];
+				for(var i=0;i<aLi.length;i++){
+					aClass[i]=aLi[i].className;
+				}
+				oBtn_l.onclick=function(){					
+					aClass.unshift(aClass.pop());
+					for(var i=0;i<aLi.length;i++){
+						aLi[i].className=aClass[i];
+					}
+				}
+				oBtn_r.onclick=function(){
+					aClass.push(aClass.shift());
+					for(var i=0;i<aLi.length;i++){
+						aLi[i].className=aClass[i];
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<a href="javascript:;" id="left">←</a>
+			<a href="javascript:;" id="right">→</a>
+		</div>
+		<ul>
+			<li class="l2"><img src="img/1.jpg" alt=""></li>
+			<li class="l1"><img src="img/2.jpg" alt=""></li>
+			<li class="show"><img src="img/3.jpg" alt=""></li>
+			<li class="r1"><img src="img/4.jpg" alt=""></li>
+			<li class="r2"><img src="img/5.jpg" alt=""></li>
+			<li><img src="img/6.jpg" alt=""></li>
+			<li><img src="img/7.jpg" alt=""></li>
+			<li><img src="img/8.jpg" alt=""></li>
+		</ul>
+	</body>
+</html>

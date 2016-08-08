@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	.box{ width:1050px; height:250px; border:1px solid#333; margin:300px auto; position:relative; overflow:hidden;}
+	#list1{ width:100%; height:200px; overflow:hidden; position:absolute; top:0; left:0;}
+	#list2{ width:100%; height:200px; overflow:hidden; position:absolute; left:1050px; top:0;}
+	#list1 li{ float:left; width:200px; height:200px; margin-right:10px; text-align:center; line-height:200px; font-size:30px;}
+	#list2 li{ float:left; width:200px; height:200px; margin-right:10px; text-align:center; line-height:200px; font-size:30px;}
+	#list3{ width:300px; height:20px; position:absolute; left:50%; bottom:15px; margin-left:-150px; overflow:hidden;}
+	#list3 li{ width:50px; margin-right:10px; background:#ccc; height:10px; float:left; position:relative;}
+	#list3 li span{height:10px; background:#f69; position:absolute; left:0; top:0;}
+</style>
+<script src="js/move.js"></script>
+<script>
+	window.onload=function(){
+		var oL1=document.getElementById('list1');
+		var oL2=document.getElementById('list2');
+		var oL=document.getElementById('list3');
+		var aLi=oL1.children;
+		var aBtn=oL.getElementsByTagName('span');
+		
+		
+		var x=3;
+		var m=1;
+		var n=1;
+		function rol(){
+			timer=setInterval(function(){
+				oL1.style.opacity=1;
+				oL2.style.opacity=1;
+				for(var i=0;i<aBtn.length;i++){
+					aBtn[i].style.width=0;	
+				};
+				Startmove(aBtn[x],{width:50},{duration:1000});
+				x++;
+				if(x==5)x=0;
+				if(m==5){
+					m=-5;
+				}
+				if(n==10){
+					n=0;	
+				}
+				setTimeout(function(){
+					if(m==-5){
+						Startmove(oL1,{left:m*210,},{duration:1000});
+						setTimeout(function(){
+							oL1.style.opacity=0;
+							Startmove(oL1,{left:-m*210},{duration:1});
+						},1000);
+					}
+					else{
+						Startmove(oL1,{left:-m*210,},{duration:1000});						
+					}
+					if(n==0){
+						Startmove(oL2,{left:(n-aLi.length)*210},{duration:1000});
+						setTimeout(function(){
+							oL2.style.opacity=0;
+							Startmove(oL2,{left:(aLi.length-n)*210,},{duration:1});	
+						},1000);	
+					}
+					else{
+						Startmove(oL2,{left:(aLi.length-n)*210,},{duration:1000});	
+					}
+					m++;
+					n++;	
+					
+				},1000);
+				
+				document.title=m;	
+			},2000);
+		}
+		rol();		
+	};
+</script>
+</head>
+
+<body>
+<div class="box">
+	<ul id="list1">
+    	<li style="background:#3C6">1</li>
+    	<li style="background:#C36">2</li>
+    	<li style="background:#63C">3</li>
+    	<li style="background:#3F6">4</li>
+    	<li style="background:#C3C">5</li>
+    </ul>
+    <ul id="list2">
+    	<li style="background:#3C6">1</li>
+    	<li style="background:#C36">2</li>
+    	<li style="background:#63C">3</li>
+    	<li style="background:#3F6">4</li>
+    	<li style="background:#C3C">5</li>
+    </ul>
+    <ol id="list3">
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    	<li><span></span></li>
+    </ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	#box{ width:750px; height:360px; margin:300px auto; border:1px solid#333; position:relative; overflow:hidden;}
+   	#box #list{ width:2000px; height:180px; -overflow:hidden; position:absolute; top:90px; left:0;}
+	#list li{width:250px; height:180px; float:left; border:1px solid#000; position:relative;}
+	#list li img{width:100%; height:100%; position:absolute; vertical-align:top;}
+</style>
+<script>
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oList=document.getElementById('list');
+		var aLi=oList.children;
+		var aImg=oList.getElementsByTagName('img');
+		//获取中间点位置
+		var disC=oBox.offsetWidth/2;
+		changeSize();
+		//var dis=w-disC;  有正负数，取绝对值
+		oList.onmousedown=function(ev){
+			var oEvent=ev||event;
+			var disX=oEvent.clientX-oList.offsetLeft;
+			document.onmousemove=function(ev){
+				var oEvent=ev||event;
+				var l=oEvent.clientX-disX;
+				/*
+				if(l>disC-(aLi[0].offsetLeft+aLi[0].offsetWidth/2)){
+					l=disC-(aLi[0].offsetLeft+aLi[0].offsetWidth/2);
+				}
+				if(l<disC-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2)){
+					l=disC-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2);
+				}*/
+				//限制左边距离
+				if(l>disC-(aLi[0].offsetLeft+aLi[0].offsetWidth/2)){
+					l=disC-(aLi[0].offsetLeft+aLi[0].offsetWidth/2);	
+				}
+				if(l<disC-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2)){
+					l=disC-(aLi[aLi.length-1].offsetLeft+aLi[0].offsetWidth/2);
+				}
+				oList.style.left=l+'px';
+				changeSize();	
+			};
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+				oList.releaseCapture&&oList.releaseCapture();	
+			};
+			oList.setCapture&&oList.setCapture();
+			return false;	
+		};	
+		function changeSize(){
+			for(var i=0;i<aLi.length;i++){
+				//得到每一个Li中间位置距离屏幕左边缘的距离，与中间点位置做差值
+				var w=aLi[i].offsetLeft+oList.offsetLeft+aLi[i].offsetWidth/2;
+				var dis=Math.abs(w-disC);
+				var scale=1-dis/500;
+				if(scale<0.5)scale=0.5;
+				
+				aImg[i].style.width=scale*500+'px';
+				aImg[i].style.height=scale*360+'px';
+				aImg[i].style.marginTop=-(aImg[i].offsetHeight-oList.offsetHeight)/2-1+'px';
+				aImg[i].style.marginLeft=-(aImg[i].offsetWidth-250)/2+'px';
+				aLi[i].style.zIndex=scale*1000;
+			};	
+		};
+	};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul id="list">
+    	<li><img src="images/01.jpg" alt="" /></li>
+    	<li><img src="images/02.jpg" alt="" /></li>
+    	<li><img src="images/03.jpg" alt="" /></li>
+    	<li><img src="images/04.jpg" alt="" /></li>
+    	<li><img src="images/05.jpg" alt="" /></li>
+    </ul>
+</div>
+</body>
+</html>

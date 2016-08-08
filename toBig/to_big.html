@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0;}
+	div{ width:400px; height:200px; float:left; position:relative;}
+	#img1{width:400px; height:200px;}
+	#img2{ position:absolute;}
+	#box1{ margin-right:20px; position:relative;}
+	#box2{ overflow:hidden;}
+	#pp{ width:80px; height:80px; position:absolute; background:#f69; opacity:0.5; top:0; left:0; display:none; }
+</style>
+<script>
+	window.onload=function(){
+		var oBox1=document.getElementById('box1');	
+		var oBox2=document.getElementById('box2');
+		var oP=document.getElementById('pp');
+		var oImg=document.getElementById('img2');
+		oBox1.onmouseover=function(){
+			oP.style.display='block';	
+		};
+		oBox1.onmouseout=function(){
+			oP.style.display='none';	
+		};
+		oBox1.onmousemove=function(ev){
+			var	oEvent=ev||even;
+			var x=oEvent.clientX-oP.offsetWidth/2;
+			var y=oEvent.clientY-oP.offsetHeight/2;
+			if(x<=0){
+				x=0;	
+			}
+			if(x>=oBox1.offsetWidth-oP.offsetWidth){
+				x=oBox1.offsetWidth-oP.offsetWidth;
+			}
+			if(y<=0){
+				y=0;	
+			}
+			if(y>oBox1.offsetHeight-oP.offsetHeight){
+				y=oBox1.offsetHeight-oP.offsetHeight;	
+			}
+			oP.style.top=y+'px';
+			oP.style.left=x+'px';
+			//
+			var a=x;
+			var b=oBox1.offsetWidth-oP.offsetWidth;
+			var c=oImg.offsetWidth-oBox2.offsetWidth;
+			var l=a*c/b;
+			oImg.style.left=-l+'px';
+			
+			var o=y;
+			var p=oBox1.offsetHeight-oP.offsetHeight;
+			var q=oImg.offsetHeight-oBox2.offsetHeight;
+			var t=o*q/p;
+			oImg.style.top=-t+'px';
+			
+		};
+	};
+</script>
+</head>
+
+<body>
+<div id="box1"><img src="img/01.jpg" alt="" id="img1"/>
+	<p id="pp"></p>
+</div>
+<div id="box2"><img src="img/02.jpg" alt="" id="img2"/></div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0; list-style:none; text-decoration:none;}
+	.box{ width:500px; height:400px; margin:300px auto; overflow:hidden; border:1px solid #ccc; position:relative;}
+	#ul1{position:relative;}
+	#ul1 li{width:500px; height:400px; position:absolute; left:500px; top:0;}
+	#ul1 li img{ width:100%; height:100%;}
+	#ul1 li.first{ left:0;}
+	a{ width:80px; height:80px; background:#969; opacity:0.5; filter:alpha(opacity:50); position:absolute; line-height:80px; text-align:center; font-size:30px; z-index:1;}
+	a:hover{ background:#F00; color:#000; opacity:0.8; filter:alpha(opacity:80);}
+	#prve{ left:-15px; top:50%; margin-top:-40px; border-radius:15px; padding-left:15px;}
+	#next{ right:-15px; top:50%; margin-top:-40px; border-radius:15px; padding-right:15px;}
+	#jump{ width:120px; height:20px; overflow:hidden; position:absolute; bottom:10px; left:50%; margin-left:-60px;}
+	#jump span{ width:20px; height:20px; border-radius:50%; margin:0 5px; float:left; background:#0C6;}
+	#jump .on{ background:#F60;}
+</style>
+<script src="move.js"></script>
+<script>
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.children;
+		var oPrve=document.getElementById('prve');
+		var oNext=document.getElementById('next');
+		var oJp=document.getElementById('jump');
+		var aBtn=oJp.children;
+		var iNow=0;
+		function prve(num){
+			startMove(aLi[iNow],{left:500},{duration:1000,easing:'ease-out'});
+			if(num==1){
+				iNow--;	
+			}
+			else{
+				iNow+=num;	
+			}
+			if(iNow<0){
+				iNow=aLi.length-1;	
+			}
+			aLi[iNow].style.left=-500+'px';
+			startMove(aLi[iNow],{left:0},{duration:1000,easing:'ease-out'});
+			change(iNow);	
+		};
+		function next(num){
+			startMove(aLi[iNow],{left:-500},{duration:1000,easing:'ease-out'});
+			iNow+=num;
+			if(iNow>aLi.length-1){
+				iNow=0;	
+			}
+			aLi[iNow].style.left=500+'px';
+			startMove(aLi[iNow],{left:0},{duration:1000,easing:'ease-out'});
+			change(iNow);
+		};
+		function change(index){
+			for(var i=0;i<aBtn.length;i++){
+				aBtn[i].className='';	
+			}	
+			aBtn[index].className='on';
+		};
+		oPrve.onclick=function(){
+			prve(1);	
+		};
+		oNext.onclick=function(){
+			next(1);	
+		};
+		for(var i=0;i<aBtn.length;i++){
+			(function(index){
+				aBtn[i].onclick=function(){
+					change(index);
+					var dis=index-iNow;
+					if(dis>0){
+						next(dis);	
+					}else if(dis<0){
+						prve(dis);	
+					}
+				};	
+			})(i);	
+		};
+	};
+</script>
+</head>
+
+<body>
+<div class="box">
+	<a href="javascript:;" id="prve">prve</a>
+    <a href="javascript:;" id="next">next</a>
+	<ul id="ul1">
+    	<li class="first"><img src="images/01.jpg" alt="" /></li>
+    	<li><img src="images/02.jpg" alt="" /></li>
+    	<li><img src="images/03.jpg" alt="" /></li>
+    	<li><img src="images/04.jpg" alt="" /></li>
+    </ul>
+    <div id="jump">
+    	<span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      
+    </div>
+</div>
+</body>
+</html>

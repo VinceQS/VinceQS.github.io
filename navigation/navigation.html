@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0;}
+	input{ outline:none; border:none; background:none;}
+	a,li{ text-decoration:none; list-style:none; color:#333;}
+	.box{ width:920px; height:248px; background-color:#292931; margin:200px auto; padding:10px; position:relative;}
+	.box #list{ width:736px; height:248px; float:left;}
+	#list li{ width:180px; height:80px; margin:0 4px 4px 0; float:left; position:relative;}
+	#list li .wz{ width:180px; height:80px; position:absolute; top:0; left:0; }
+	.wz p{width:180px; height:80px;background:#e7e7e7; font-size:30px; font-weight:blod; text-align:center; line-height:80px;}
+	.close_wz{ position:absolute; width:10px; height:10px; top:5px; right:5px; background:url(image/img_close1.png) no-repeat 0 0;}
+	.p1{ float:left;}
+	.box .show{ width:475px; height:347px; border:1px solid#F93; position:absolute; left:250px; bottom:5px; background-color:#f7f7f7; padding:13px 0 0 25px;}
+	.no{ display:none;}
+	.on{ display:block;}
+	.show strong{ position:absolute; top:5px; right:5px;}
+	.show h3{ height:16px; width:475px; font-size:16px; text-align:center; margin-bottom:15px;}
+	.show .t_box{ width:450px; height:84px;}
+	.t_box li{ height:33px; margin-bottom:9px; line-height:33px;}
+	#txt1{width:288px; height:29px; border:2px solid #84adde; padding-left:10px;}
+	#txt2{width:288px; height:29px; border:2px solid #deded6; color:#ada5a5; background:#fff; padding-left:10px;}
+	#btn{ width:60px; height:30px; background:#0084bd; color:#fff; text-align:center; line-height:30px;}
+	.show .b_box{ width:440px; height:216px; border-left:1px solid #deded6; border-right:1px solid #deded6;}
+	.b_box .top{ width:440px; height:35px;}
+	.top a{float:left; width:216px; height:33px; border:1px solid#deded6; background:#e7e7e7; text-align:center; line-height:33px;}
+	.top .a1{ float:right;}
+	#btom{ width:440px; height:181px; background:#fff;}
+	#btom li{ float:left; width:178px; height:44px; border-bottom:1px solid #deded6; border-right:1px solid #deded6; padding:16px 0 0 40px; cursor:pointer;}
+	#btom .r_b{ border-right:none 0;}
+	#btom li p{ font-size:14px; margin-top:5px;}
+</style>
+<script>
+	//定义数组 存放网站信息
+	var arr1=[
+		{
+			title:'淘宝网',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'百度',
+			href:'www.baidu.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		},
+		{
+			title:'1',
+			href:'www.taobao.com'	
+		}
+	
+	];
+	
+	window.onload=function(){
+		var oL=document.getElementById('list');
+		var aA=oL.getElementsByClassName('bg');
+		var aImg=oL.getElementsByTagName('img');
+		//显示框
+		var oDiv=document.getElementById('div1');
+		//关闭显示框的×
+		var oClose=document.getElementById('close');
+		//获取输入框和btn
+		var oT1=document.getElementById('txt1');
+		var oT2=document.getElementById('txt2');
+		var oBtn=document.getElementById('btn');
+		var aDiv=oL.getElementsByTagName('div');
+		var aP=oL.getElementsByTagName('p');
+		var aBtn_wz=oL.getElementsByClassName('close_wz');
+		//判断函数，判断当前要添加的网站是否已存在，返回true 或者 false
+		function pd(x){
+			var t1=oT1.value;
+			var t2=oT2.value;
+			for(var i=0;i<arr1.length;i++){
+				if(t1==arr1[i].title){
+					return true;
+				}	
+			};
+			return false;	
+		};
+		//显示arr1中已存在的网站
+		for(var i=0;i<arr1.length;i++){
+			if(arr1[i].title==1){
+			}	
+			else{
+				aDiv[i].className='wz on';
+				aP[i].innerHTML=arr1[i].title;		
+			}
+		};
+		//给网站名右上角的×加事件
+		for(var i=0;i<aBtn_wz.length;i++){
+			(function(m){
+				aBtn_wz[i].onclick=function(){
+					aDiv[m].className='wz no';	
+					arr1[m].title=1;
+					arr1[m].href='';
+				};		
+			})(i)	
+		}
+		//给li添加鼠标移入事件，移入时换背景图，橘黄色的＋
+		for(var i=0;i<aA.length;i++){
+			aA[i].index=i;
+			aA[i].onmouseover=function(){
+				//alert(0)
+				for(var i=0;i<aA.length;i++){
+					aImg[i].src='image/img_01.png';	
+				}
+				aImg[this.index].src='image/img_02.png';	
+			};	
+		}	
+		
+		//给li添加点击事件，点击时让显示框出现
+		for(var i=0;i<aA.length;i++){
+			
+			//aA[i].index=i;
+			//根据点击的是第几个＋，将对应的arr1的那个项，信息更新
+			(function(n){
+				aA[i].onclick=function(){
+				oDiv.className='show on';
+				oBtn.onclick=function(){
+					//给oT1添加onchange事件，当输入网站名时，让oT2清空
+					//oT1.onchange=function(){
+					//	oT2.value='';			
+					//};
+					var t1=oT1.value;
+					var t2=oT2.value;
+					//判断输入框网站名是否为空
+					if(t1==''){
+						alert('请输入网站名');
+						return;
+					}
+				    //先做判断，看要添加的网站是否已经存在
+					if(pd(t1)){
+						alert('网站已存在')	
+						oT1.value='';
+						oT2.value='例如：cn.bing.com';
+					}
+					else{
+						arr1[n].title=t1;
+						arr1[n].href=t2;
+						oT1.value='';
+						oT2.value='例如：cn.bing.com';	
+					}
+					//添加完之后，要更新网站列表
+					//每个li上定位一个div用来显示网站名，如果对应的arr1中的那一项title为空，则div隐藏，否则显示
+					for(var i=0;i<arr1.length;i++){
+						if(arr1[i].title==1){
+						}	
+						else{
+							aDiv[i].className='wz on';
+							aP[i].innerHTML=arr1[i].title;		
+						}
+					};
+					//点击过添加后，关闭添加框
+					oDiv.className='show no';
+				};	
+			};		
+			})(i)
+		}
+		//给显示框右上角的关闭添加事件
+		oClose.onclick=function(){
+			oDiv.className='show no';	
+		};
+		//处理已有网站添加
+		var oUl=document.getElementById('btom');
+		var aLi=oUl.getElementsByTagName('li');
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].onclick=function(){
+				//alert(0)
+				
+				oT1.value=this.children[0].innerHTML;
+				oT2.value=this.children[1].innerHTML;
+			};	
+		};
+		
+	};
+</script>
+</head>
+
+<body>
+<div class="box">
+	<ul id="list">
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt=""/></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    	<li>
+        	<a href="javascript:;" class="bg"><img src="image/img_01.png" alt="" /></a>
+            <div class="wz no">
+            	<p></p>
+                <a href="javascript:;" class="close_wz"></a>
+            </div>
+        </li>
+    </ul>
+    <p class="p1"><img src="image/img_03.png" alt="" /></p>
+    <div class="show no" id="div1">
+    	<strong><a href="javascript:;" id="close"><img src="image/img_close.png" alt="" /></a></strong>
+        <h3>添加网站</h3>
+        <ul class="t_box">
+        	<li class="li1">
+            	<span>网站名称</span>
+                <input type="text" id="txt1"/>
+                <input type="button" id="btn" value="添加"/>
+            </li>
+            <li class="li2">
+            	<span>网址链接</span>
+                <input type="text" id="txt2" value="例如：cn.bing.com" />
+            </li>
+        </ul>
+        <div class="b_box">
+        	<div  class="top">
+            	<a href="javascript:;">必应推荐</a>
+                <a href="javascript:;" class="a1">经常使用</a>
+            </div>
+            <ul id="btom">
+            	<li>
+                	<h4>淘宝网</h4>
+                    <p>http://www.taobao.com/</p>
+                </li>
+            	<li class="r_b">
+                	<h4>优酷网</h4>
+                    <p>http://www.youku.com/</p>
+                </li>
+            	<li>
+                	<h4>京东商城</h4>
+                    <p>http://www.jd.com/</p>
+                </li>
+            	<li class="r_b">
+                	<h4>MSN中文网</h4>
+                    <p>http://cn.msn.com/</p>
+                </li>
+            	<li>
+                	<h4>亚马逊 </h4>
+                    <p>http://www.amazon.com/</p>
+                </li>
+            	<li class="r_b">
+                	<h4>腾讯网</h4>
+                    <p>http://news.qq.com/</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

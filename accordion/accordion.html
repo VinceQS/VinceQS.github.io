@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	img{ vertical-align:top; width:400px; height:300px;}
+	.box{ width:600px; height:300px; margin:300px auto; overflow:hidden;}
+	#list{width:600px; height:100%; position:relative;}
+	#list li{ width:400px; height:300px; position:absolute; top:0; left:0;}
+</style>
+<script src="move.js"></script>
+<script>
+	window.onload=function(){
+		var oList=document.getElementById('list');
+		var aLi=oList.children;
+		var w=40;
+		var W=oList.offsetWidth;
+		//循环 初始定位
+		for(var i=1;i<aLi.length;i++){
+			aLi[i].style.left=W-w*(aLi.length-i)+'px';	
+		};
+		for(var i=0;i<aLi.length;i++){
+			(function(index){
+				aLi[i].onmouseover=function(){
+					for(var j=0;j<aLi.length;j++){
+						if(j<=index){	
+							startMove(aLi[j],{left:w*j},{duration:1000,easing:'ease-out'});
+						}
+						else{
+							startMove(aLi[j],{left:W-w*(aLi.length-j)},{duration:1000,easing:'ease-out'});	
+						}	
+					};
+				};	
+			})(i);	
+		};
+	};
+</script>
+</head>
+													
+<body>
+<div class="box">
+	<ul id="list">
+    	<li><img src="images/01.jpg" alt="" /></li>
+    	<li><img src="images/02.jpg" alt="" /></li>
+    	<li><img src="images/03.jpg" alt="" /></li>
+    	<li><img src="images/04.jpg" alt="" /></li>
+        <li><img src="images/05.jpg" alt="" /></li>
+        <li><img src="images/06.jpg" alt="" /></li>
+    </ul>
+</div>
+</body>
+</html>

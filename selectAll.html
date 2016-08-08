@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<title>智能社 - www.zhinengshe.com</title>
+<style>
+body {text-align:center;}
+</style>
+<script>
+	window.onload=function(){
+		var oText1=document.getElementById('txt1');
+		var oText2=document.getElementById('txt2');
+		var oBtn=document.getElementById('btn');
+		oBtn.onclick=function(){
+			var str=oText1.value;
+			//alert(typeof str);
+			var arr=[];
+			arr=str.split(',');//将输入框内容以逗号分割，存到数组arr
+			//alert(arr);
+			var json={};
+			for(var i=0;i<arr.length;i++){
+				json[arr[i]]=1;	//将数组arr转化成json的格式"xxx"="yyy";
+			}
+			var arr1=[];//定义一个空数组用来存放去重后的内容
+			for(var name in json){
+				arr1.push(name);	
+			}
+			//console.log(arr1);
+			var str1=arr1.join(',');
+			//console.log(str1);
+			//定义数组
+			var arr2=[];
+			var arr3=[];
+			for(var i=0;i<arr1.length;i++){
+				arr2[i]=str1.indexOf('-');  //来存放从前往后顺序查找到的每一个‘-’的位置。
+				str1=str1.replace('-','x');//逐个将查找到的‘-’换成x,这样数组arr1的内容的个数就不会改变，继续查找下一个‘-’的位置
+				
+			};
+			for(var i=0;i<arr1.length;i++){
+				arr3[i]=str1.indexOf(',');  //来存放从前往后顺序查找到的每一个‘,’的位置。
+				str1=str1.replace(',','y');//逐个将查找到的‘-’换成y,这样数组arr1的内容的个数就不会改变，继续查找下一个‘,’的位置
+				
+			};
+			console.log(arr2);
+			console.log(arr3);
+			//console.log(str1);
+			//从零开始，根据得到的每一个‘-’的位置，逐个截取，数组中每一个商品的名字
+			var str2='';
+			var array=[];
+			for(var i=0;i<arr1.length;i++){
+				
+				array[0]=str1.substring(0,arr2[0]);
+				array[i+1]=str1.substring((arr3[i]+1),arr2[i+1]);	
+			}
+			//console.log(str1);
+			//console.log(typeof (arr3[i]+1));
+			array.length=array.length-1;
+			console.log(array);
+			var string=array.join('\n');
+			
+			oText2.value=string;	
+		};
+		
+		
+	};
+</script>
+</head>
+
+<body>
+输入原始文本(空格隔开)：<br>
+<textarea style="width:300px; height:200px;" id="txt1">冰红茶-3元,冰绿茶-2.5元,橙汁-1.5元,葡萄汁-5毛,柠檬汁-1.5元,芒果汁-30毛,柠檬汁-1.5元,柠檬汁-1.5元,柠檬汁-1.5元,柠檬汁-1.5元</textarea><br>
+<br>
+<input type="button" value="变" id="btn" /><br>
+<br>
+这里输出结果：<br>
+<textarea style="width:300px; height:200px;" id="txt2"></textarea>
+</body>
+</html>

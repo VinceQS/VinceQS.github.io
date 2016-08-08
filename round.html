@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#box{ width:300px; height:300px; border:1px solid #f00; border-radius:50%; position:absolute; left:100px; top:100px; }
+span{ width:40px; height:40px; background:red; position:absolute; left:50%; margin-left:-20px; top:0; margin-top:-20px; border-radius:50%; }
+</style>
+<script>
+function d2a(n){//角度转弧度
+	return n*Math.PI/180; 		
+}
+window.onload=function (){
+	var oBox=document.getElementById('box');
+	var R=oBox.offsetWidth/2;
+	var N=8;
+	for(var i=0; i<N; i++){
+		var oS=document.createElement('span');
+		oBox.appendChild(oS);
+	}
+	var bOk=true;
+	document.onclick=function (){
+		var aS=document.getElementsByTagName('span');
+		if(bOk){
+			for(var i=0; i<aS.length; i++){
+				move(aS[i],i*45);
+			}
+		}else{
+			for(var i=0; i<aS.length; i++){
+				move(aS[i],0);
+			}
+		}
+		bOk=!bOk;
+	};
+	function move(obj,iTarget){
+		var start=obj.left||0;
+		var dis=iTarget-start;
+		var count=Math.floor(1000/30);		
+		var n=0;		
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function (){
+			n++;
+			var cur=start+dis/count*n;
+			//d2a() 是弧度转角度，cur是个数字，跟弧度有转化关系吗
+			var x=R+Math.sin(d2a(cur))*R;
+			var y=R-Math.cos(d2a(cur))*R;			
+			obj.style.left=x+'px';
+			obj.style.top=y+'px';
+			
+			if(n==count){
+				clearInterval(obj.timer);
+				obj.left=cur;
+			}
+		},30);
+	}
+};
+</script>
+</head>
+
+<body>
+	<div id="box"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
