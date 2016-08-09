@@ -165,16 +165,20 @@
 		//当鼠标移入中间立方体时，宽度变大
 		var oSkill=document.getElementById('skills');
 		var aDiv=oSkill.children;
-		var w1=parseInt(oSkill.offsetWidth)*0.3;
+		var w1=parseInt(oSkill.offsetWidth);
 		var w2=parseInt(oSkill.offsetWidth)*0.4;
 		var arr_int=['超文本标记语言，标准通用标记语言下的一个应用','层叠样式表是一种用来表现HTML或XML等文件样式的计算机语言','jQuery是一个兼容多浏览器的javascript库','JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型','一种创建交互式网页应用的网页开发技术','新标签新属性、新样式'];
 		var oCube=document.getElementById('cube');
 		var aA=oCube.getElementsByTagName('a');
 		var oInt=document.getElementById('introduce');
 		aDiv[2].onmouseover=function(){
-			Startmove(aDiv[0],{width:w1});
-			Startmove(aDiv[1],{width:w1});
-			Startmove(aDiv[2],{width:w2,left:w1});
+			
+			//Startmove(aDiv[0],{width:w1});
+			aDiv[0].className='left_show ggo';
+			aDiv[1].className='right_show ggo';
+			aDiv[2].className='center_show ggoo';
+			//Startmove(aDiv[1],{width:w1});
+			//Startmove(aDiv[2],{width:w2,left:w1});
 			//每一个a点击的时候出文字				
 			for(var i=0;i<aA.length;i++){
 				//定义开关，字体显示完成之前不准再点。
@@ -209,11 +213,14 @@
 			}	
 		};
 		aDiv[2].onmouseout=function(){
-			Startmove(aDiv[0],{width:w2});
-			Startmove(aDiv[1],{width:w2});
-			Startmove(aDiv[2],{width:w2/2,left:w2},{complete:function(){
-				oInt.innerHTML='';
-			}});					
+			//Startmove(aDiv[0],{width:w2});
+			//Startmove(aDiv[1],{width:w2});
+			aDiv[0].className='left_show bback';
+			aDiv[1].className='right_show bback';
+			aDiv[2].className='center_show cback';
+			//Startmove(aDiv[2],{width:w2/2,left:w2},{complete:function(){
+				//oInt.innerHTML='';
+			//}});					
 		};
 		//旋转：				
 		var x=45;
